@@ -55,6 +55,17 @@ public class InfractorServiceImpl implements IInfractorService {
         infractor.getVehiculos().add(vehiculo);
         infractorRepository.save(infractor);
     }
+    @Override
+    public void verificarBloqueo(Long infractorId) {
+        Infractor infractor = infractorRepository.findById(infractorId)
+                .orElseThrow(() -> new InfractorNotFoundException(infractorId));
+        long multasVencidas = infractorRepository.countByIdAndMultasEstado(
+                infractorId, edu.pe.cibertec.infracciones.model.EstadoMulta.VENCIDA);
+        if (multasVencidas >= 3) {
+            infractor.setBloqueado(true);
+            infractorRepository.save(infractor);
+        }
+    }
 
 
     private InfractorResponseDTO mapToResponse(Infractor infractor) {

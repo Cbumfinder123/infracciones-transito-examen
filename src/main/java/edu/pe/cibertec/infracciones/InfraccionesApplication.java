@@ -14,4 +14,5 @@ public class InfraccionesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InfraccionesApplication.class, args);
 	}
+
 }
