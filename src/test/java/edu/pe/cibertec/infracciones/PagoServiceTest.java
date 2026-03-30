@@ -11,10 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -32,12 +30,11 @@ public class PagoServiceTest {
 
     @Test
     void procesarPago_debeAplicarDescuento20_cuandoPagoEsElMismoDiaDeEmision() {
-        // Dado
         Multa multa = new Multa();
         multa.setId(1L);
         multa.setMonto(500.00);
         multa.setFechaEmision(LocalDate.now());
-        multa.setFechaVencimiento(LocalDate.now().plusDays(30));
+        multa.setFechaVencimiento(LocalDate.now().plusDays(5));
         multa.setEstado(EstadoMulta.PENDIENTE);
         when(multaRepository.findById(1L)).thenReturn(Optional.of(multa));
 
@@ -51,7 +48,6 @@ public class PagoServiceTest {
     }
     @Test
     void procesarPago_debeAplicarRecargo15_cuandoMultaEstaVencida() {
-        // Dado
         Multa multa = new Multa();
         multa.setId(2L);
         multa.setMonto(500.00);
